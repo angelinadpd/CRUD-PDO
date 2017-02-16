@@ -13,7 +13,7 @@ class UserQuery{
         if (!empty($data[0]->username)) {
             if (password_verify($_POST['password'], $data[0]->password)) {
                 session_start();
-                $_SESSION['user'] = $data[0]->username;
+                $_SESSION['user'] = $data[0]->id;
                 echo "<script> alert('Login sukses!');      
                         window.location.href='index.php';
                 </script>";
@@ -32,7 +32,7 @@ class UserQuery{
     }
     public function getName($parameters)
     {
-        $statement = $this->pdo->prepare("select * from user where username='{$parameters}'");
+        $statement = $this->pdo->prepare("select * from user where id='{$parameters}'");
         $statement->execute();
         $data = $statement->fetchAll(PDO::FETCH_CLASS);
         return $data[0]->username;

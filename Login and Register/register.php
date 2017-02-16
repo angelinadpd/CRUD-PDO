@@ -9,12 +9,11 @@
         try {
             $connection = Connection::make($config);
             $db = new UserQuery($connection);
-            $db->register('user',[
+            $db->register([
                 'username' => $_POST['username'],
                 'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
                 'nama' => $_POST['nama'],
                 'email' => $_POST['email'],
-                'create' => date('Y/m/d h:i:s'),
             ]);
         }
         catch(PDOException $e){

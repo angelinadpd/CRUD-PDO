@@ -30,10 +30,11 @@
     <form action="login.php" method="post" accept-charset="utf-8">
     <span>Username : </span><input type="text" name="username" required>
     <span>Password : </span><input type="password" name="password" required>
-    <input type="submit" name="submit" value="Login">
+    <input type="submit" name="Login" value="Login">
     </form>
     <a href="register.php">Daftar sekarang</a>
 </body>
 </html>
 
 <?php }?>
+
