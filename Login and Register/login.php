@@ -14,9 +14,10 @@
             echo $e->getMessage();
         }
     }
-    if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['login'])) {
         header("location: index.php");
     }else{
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,13 +29,13 @@
 <body>
     <h2>Login</h2>
     <form action="login.php" method="post" accept-charset="utf-8">
-    <span>Username : </span><input type="text" name="username" required>
-    <span>Password : </span><input type="password" name="password" required>
-    <input type="submit" name="Login" value="Login">
+    <span>Username : </span><input type="text" name="username" required></br></br>
+    <span>Password : </span><input type="password" name="password" required></br></br>
+    <input type="submit" name="submit" value="Login">
     </form>
     <a href="register.php">Daftar sekarang</a>
 </body>
 </html>
 
-<?php }?>
+
 
