@@ -1,19 +1,20 @@
 <?php
 class UserQuery{
-    protected $pdo;
+    protected $pdo; //menyimpan koneksi db
+    private $error; //menyimpan pesan error
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
+        session_start();
     }
-    public function login($user,$password)
+    public function login($user, $password)
     {
-        $statement = $this->pdo->prepare("select * from user where username='{$user}'");
+        $statement = $this->pdo->prepare("SELECT * FROM user WHERE username='{$user}'");
         $statement->execute();
         $data = $statement->fetchAll(PDO::FETCH_CLASS);
-        if (!empty($data[0]->username)) {
-            if (password_verify($_POST['password'], $data[0]->password)) {
-                session_start();
-                $_SESSION['login'] = $data[0]->username;
+        if (!empty($data)) {
+            if (password_verify($password, $data[0]->password)) {
+                $_SESSION['login'] = $data[0]->id;
                 echo "<script> alert('Login sukses!');      
                         window.location.href='index.php';
                 </script>";
@@ -23,7 +24,7 @@ class UserQuery{
                 </script>";
             }
         }else{
-            header("location: index.php");
+            header("location: login.php");
         }
     }
     public function logout($parameters)
@@ -32,7 +33,7 @@ class UserQuery{
     }
     public function getName($parameters)
     {
-        $statement = $this->pdo->prepare("select * from user where username='{$parameters}'");
+        $statement = $this->pdo->prepare("select * from user where id='{$parameters}'");
         $statement->execute();
         $data = $statement->fetchAll(PDO::FETCH_CLASS);
         return $data[0]->username;

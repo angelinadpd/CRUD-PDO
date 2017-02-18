@@ -17,9 +17,9 @@ class QueryBuilder
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
-    public function find($table,$id)
+    public function find($table,$kode)
     {
-        $statement = $this->pdo->prepare("select * from {$table} where id={$id}");
+        $statement = $this->pdo->prepare("select * from {$table} where kode={$kode}");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
@@ -41,7 +41,7 @@ class QueryBuilder
             return false;
         }
     }
-    public function update($table, $parameters, $id)
+    public function update($table, $parameters, $kode)
     {
         $param ='';
         foreach ($parameters as $key => $value) {
@@ -51,7 +51,7 @@ class QueryBuilder
             'update %s set %s where %s',
             $table,
             substr($param,0,-1),
-            'id='.$id
+            'kode='.$kode
         );
         try {
             $statement = $this->pdo->prepare($sql);
@@ -62,12 +62,11 @@ class QueryBuilder
             return false;
         }
     }
-    public function delete($table,$id)
+    public function delete($table,$kode)
     {
-        $sql = sprintf('delete from %s where id=:id',$table);
+        $sql = sprintf('delete from %s where kode=:kode',$table);
         $statement = $this->pdo->prepare($sql);
-        $statement->execute([':id'=>$id]);
+        $statement->execute([':kode'=>$kode]);
         header("location: index.php");
     }
 }
-?>

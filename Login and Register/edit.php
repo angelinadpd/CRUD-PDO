@@ -2,14 +2,14 @@
     require_once "database/Connection.php";
     require_once "database/QueryBuilder.php";
     require_once "config/database.php";
-    
+
     $connection = Connection::make($config);
     $db = new QueryBuilder($connection);
     $perpustakaan = $db->find('buku',$_GET['kode']);
     
     if(isset($_POST['submit'])){
         $kode = $_GET['kode'];
-
+        
         try {
             $db->update('buku', [
                 'judul' => $_POST['judul'],
@@ -23,6 +23,7 @@
         }
     }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +32,15 @@
     <title></title>
 </head>
 <body>
-    <form action="edit.php?kode=<?= $buku[0]->kode; ?>" method="post" accept-charset="utf-8">
+    <form action="edit.php?kode=<?=$perpustakaan[0]->kode; ?>" method="post" accept-charset="utf-8">
         <p>Judul
-        <input type="text" name="judul" value="<?= $buku[0]->judul ?>" placeholder="" ></p>
+        <input type="text" name="judul" value="<?=$perpustakaan[0]->judul ?>" placeholder="" ></p>
         <p>Pengarang
-        <input type="text" name="pengarang" value="<?= $buku[0]->pengarang ?>" placeholder="" ></p>
+        <input type="text" name="pengarang" value="<?=$perpustakaan[0]->pengarang ?>" placeholder="" ></p>
         <p>Penerbit
-        <input type="text" name="penerbit" value="<?= $buku[0]->penerbit?>" placeholder="" ></p>
+        <input type="text" name="penerbit" value="<?=$perpustakaan[0]->penerbit?>" placeholder="" ></p>
         <p>Tahun terbit
-        <input type="text" name="tahunterbit" value="<?= $buku[0]->tahunterbit ?>" placeholder="" ></p>
+        <input type="text" name="tahunterbit" value="<?=$perpustakaan[0]->tahunterbit ?>" placeholder="" ></p>
         <br>
         <br>
         <input type="submit" name="submit" value="submit">

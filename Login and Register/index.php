@@ -1,24 +1,13 @@
 <?php
 
-require_once "database/Connection.php";
-require_once "database/QueryBuilder.php";
-require_once "database/UserQuery.php";
-require_once "config/database.php";
+    require_once "database/Connection.php";
+    require_once "database/QueryBuilder.php";
+    require_once "database/UserQuery.php";
+    require_once "config/database.php";
 
-$connection = Connection::make($config);
-$db = new QueryBuilder($connection);
-$perpustakaan = $db->select('buku');
-$userQ = new UserQuery($connection);
-
-    if (isset($_POST['logout'])) {
-        $userQ->logout([$_SESSION['user']]);
-    }
-
-    if (!isset($_SESSION['user'])) {
-        header("location: login.php");
-    }else{
-        $user = $userQ->getName($_SESSION['user']);
-
+    $connection = Connection::make($config);
+    $db = new QueryBuilder($connection);
+    $perpustakaan = $db->select('buku');   
  ?>
 
  <!DOCTYPE html>
@@ -39,27 +28,23 @@ $userQ = new UserQuery($connection);
             <th>Hapus</th>
             <th>Edit</th>
         </tr>
-        <?php foreach ($buku as $buku)  : ?>
+        <?php foreach ($perpustakaan as $b)  : ?>
         <tr>
-            <td><?= $buku ->kode; ?></td>
-            <td><?= $buku ->judul; ?></td>
-            <td><?= $buku ->pengarang; ?></td>
-            <td><?= $buku ->penerbit; ?></td>
-            <td><?= $buku ->tahunterbit; ?></td>
+            <td><?= $b ->kode; ?></td>
+            <td><?= $b ->judul; ?></td>
+            <td><?= $b ->pengarang; ?></td>
+            <td><?= $b ->penerbit; ?></td>
+            <td><?= $b ->tahunterbit; ?></td>
             <td>
-                <a href="delete.php?kode=<?= $buku ->kode; ?>" title="">Hapus</a>
+                <a href="delete.php?kode=<?= $b->kode; ?>" title="">Hapus</a>
             </td>
             <td>
-                <a href="edit.php?kode=<?= $buku ->kode; ?>" title="">Edit</a>
+                <a href="edit.php?kode=<?= $b->kode; ?>" title="">Edit</a>
             </td>
         </tr>
         <?php endforeach ;?>
     </table>
-    <?php if(isset($_SESSION['user'])){ ?>
-        <form action="index.php" method="post" accept-charset="utf-8">
-            <span>Login sebagai <?= $user; ?></span>&nbsp;<input type="submit" name="logout" value="Logout">
+        </br><input type="submit" name="logout" value="Logout">
         </form>
-    <?php } ?>
 </body>
 </html>
-<?php } ?>

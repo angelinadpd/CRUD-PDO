@@ -1,28 +1,25 @@
 <?php
-
-require_once "database/Connection.php";
-require_once "database/QueryBuilder.php";
-require_once "config/database.php";
+    require_once "database/Connection.php";
+    require_once "database/QueryBuilder.php";
+    require_once "config/database.php";
 
     if(isset($_POST['submit'])){
         try {
-
             $connection = Connection::make($config);
             $db = new QueryBuilder($connection);
-            $db ->insert('buku',[
-                'kode'   => $_POST['kode'],
-                'judul'   => $_POST['judul'],
-                'pengarang' => $_POST['pengarang'],
-                'penerbit'   => $_POST['penerbit'],
-                'tahunterbit'    => $_POST['tahunterbit'],
+            $db->insert('buku', [
+                'judul' => $_POST['judul'],
+                'Pengarang' => $_POST['pengarang'],
+                'penerbit' => $_POST['penerbit'],
+                'tahunterbit' => $_POST['tahunterbit']
             ]);
-
         }
         catch(PDOException $e){
             echo $e->getMessage();
         }
     }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,9 +31,6 @@ require_once "config/database.php";
 <body>
 <h2>Input Data Buku</h2>
     <form action="create.php" method="post" accept-charset="utf-8">
-        <p>Kode
-          <input type="text" name="kode" value="" placeholder="" >
-        </p>
         <p>Judul
           <input type="text" name="judul" value="" placeholder="" >
         </p>
@@ -49,7 +43,7 @@ require_once "config/database.php";
         <p>Tahun terbit
           <input type="tahunterbit" name="tahunterbit" value="" placeholder="" >
         </p>
-        <input type="submit" name="submit" value="submit">
+        <input type="submit" name="submit" value="submit"/>
         <input type="reset" name="reset" value="reset"/>
         <br>
         <br>
