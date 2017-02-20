@@ -32,6 +32,7 @@
     <title></title>
 </head>
 <body>
+    <h2>Edit Data Buku</h2>
     <form action="edit.php?kode=<?=$perpustakaan[0]->kode; ?>" method="post" accept-charset="utf-8">
         <p>Judul
         <input type="text" name="judul" value="<?=$perpustakaan[0]->judul ?>" placeholder="" ></p>

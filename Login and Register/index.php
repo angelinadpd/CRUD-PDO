@@ -7,7 +7,8 @@
 
     $connection = Connection::make($config);
     $db = new QueryBuilder($connection);
-    $perpustakaan = $db->select('buku');   
+    $perpustakaan = $db->select('buku');
+   
  ?>
 
  <!DOCTYPE html>
@@ -44,7 +45,7 @@
         </tr>
         <?php endforeach ;?>
     </table>
-        </br><input type="submit" name="logout" value="Logout">
+        </br><a href="logout.php?logout">Logout</a>
         </form>
 </body>
 </html>
